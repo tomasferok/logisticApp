@@ -1,20 +1,13 @@
 package com.iLogApp.logisticApp.com.entities;
-
-import com.fasterxml.jackson.annotation.JsonIdentityInfo;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import jakarta.persistence.*;
 import lombok.Data;
-
-import java.io.Serializable;
 import java.util.List;
 
 
 @Entity
 @Table(name="orders")
 @Data
-@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "idOrder")
-public class Order implements Serializable{
+public class Order {
 	
 	@Id 
 	@GeneratedValue(strategy = GenerationType.IDENTITY)

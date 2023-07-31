@@ -17,14 +17,14 @@ public class OrderHelper implements IOrderHelper {
     JpaProductInStorageRepository jpaProductInStorageRepository;
     @Override
     public Order setAmountProductInStorage(Order order) {
-      /*order.getProducts()
+      order.getProducts()
                 .stream()
                 .forEach(productInStorage -> {
                     productInStorage.setAmount(productInStorage.getAmount() - productInStorage
                             .getAmountInOrder());
                     jpaProductInStorageRepository.save(productInStorage);
                 }
-                );*/
+                );
 
     return order;
     }
@@ -41,13 +41,13 @@ public class OrderHelper implements IOrderHelper {
 
         order.getProducts()
                 .forEach(product->{
-                    ifIdIs0DeleteProduct(messageBuilder, product);
+                    setAmountInOrder(messageBuilder, product);
                 });
         messageBuilder.append("The order ").append(order.getIdOrder()).append(" has been packed off");
         return Optional.of(messageBuilder.toString());
     }
 
-    private void ifIdIs0DeleteProduct(StringBuilder messageBuilder, ProductInStorage product) {
+    private void setAmountInOrder(StringBuilder messageBuilder, ProductInStorage product) {
         if(product.getAmount() != 0){
             product.setAmountInOrder(0);
             jpaProductInStorageRepository.save(product);

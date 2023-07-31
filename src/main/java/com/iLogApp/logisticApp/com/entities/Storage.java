@@ -16,8 +16,7 @@ import java.util.List;
 @Getter @Setter
 @ToString
 @EqualsAndHashCode
-@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "idStorage")
-public class Storage implements Serializable {
+public class Storage {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)

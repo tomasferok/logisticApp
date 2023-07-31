@@ -9,12 +9,8 @@ import java.io.Serializable;
 @Entity
 @Table(name="suppliers")
 @Data
-public class Supplier implements Serializable {
+public class Supplier {
 
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)

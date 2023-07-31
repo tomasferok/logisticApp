@@ -46,8 +46,8 @@ public class OrderService implements IOrderService {
 
     @Override
     public Optional<Order> save(Order order) {
-       // Order orderToSave = iOrderHelper.setAmountProductInStorage(order);
-        return Optional.of(jpaOrderRepository.save(order));
+        Order orderToSave = iOrderHelper.setAmountProductInStorage(order);
+        return Optional.of(jpaOrderRepository.save(orderToSave));
     }
 
     @Override

@@ -11,12 +11,9 @@ import java.io.Serializable;
 @Entity
 @Table(name="categories")
 @Data
-public class Category implements Serializable{
-	
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
+public class Category {
+
+
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
