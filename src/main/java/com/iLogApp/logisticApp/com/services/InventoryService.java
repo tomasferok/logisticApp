@@ -16,6 +16,6 @@ public class InventoryService  implements IInventoryService {
 
     @Override
     public Optional<Inventory> save(Inventory inventory) {
-        return Optional.empty();
+        return Optional.of(jpaInventoryRepository.save(inventory));
     }
 }

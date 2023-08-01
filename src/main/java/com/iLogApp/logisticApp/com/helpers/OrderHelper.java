@@ -1,20 +1,26 @@
 package com.iLogApp.logisticApp.com.helpers;
 
+import com.iLogApp.logisticApp.com.entities.Inventory;
 import com.iLogApp.logisticApp.com.entities.Order;
 import com.iLogApp.logisticApp.com.entities.ProductInStorage;
 import com.iLogApp.logisticApp.com.exceptions.InvalidOrderException;
 import com.iLogApp.logisticApp.com.helpers.Ihelpers.IOrderHelper;
 import com.iLogApp.logisticApp.com.repositories.JpaProductInStorageRepository;
+import com.iLogApp.logisticApp.com.services.IService.IInventoryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Optional;
 import java.util.concurrent.atomic.AtomicReference;
 
 @Component
 public class OrderHelper implements IOrderHelper {
-@Autowired
+    @Autowired
     JpaProductInStorageRepository jpaProductInStorageRepository;
+    @Autowired
+    IInventoryService iInventoryService;
     @Override
     public Order setAmountProductInStorage(Order order) {
       order.getProducts()
@@ -49,6 +55,10 @@ public class OrderHelper implements IOrderHelper {
 
     private void setAmountInOrder(StringBuilder messageBuilder, ProductInStorage product) {
         if(product.getAmount() != 0){
+            Map<String, Double> buys =  new HashMap<>();
+            buys.put(product.getNameProduct(), product.getPurchasePrice());
+            Inventory inventory = new Inventory(null, buys);
+            iInventoryService.save(inventory);
             product.setAmountInOrder(0);
             jpaProductInStorageRepository.save(product);
 
