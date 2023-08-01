@@ -9,13 +9,7 @@ import com.iLogApp.logisticApp.com.repositories.JpaProductInStorageRepository;
 import com.iLogApp.logisticApp.com.services.IService.IInventoryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 import java.util.Optional;
-import java.util.concurrent.atomic.AtomicReference;
-
 @Component
 public class OrderHelper implements IOrderHelper {
     @Autowired
@@ -56,10 +50,7 @@ public class OrderHelper implements IOrderHelper {
 
     private void setAmountInOrder(StringBuilder messageBuilder, ProductInStorage product) {
         if(product.getAmount() != 0){
-            Inventory inventory = new Inventory();
-            inventory.setNameProductInInventory(product.getNameProduct());
-            inventory.getBuys().add(product.getPurchasePrice());
-            iInventoryService.save(inventory);
+            addBuyInventory(product);
             product.setAmountInOrder(0);
             jpaProductInStorageRepository.save(product);
 
@@ -70,6 +61,13 @@ public class OrderHelper implements IOrderHelper {
                     .append(product.getNameProduct()).append("\n");
             jpaProductInStorageRepository.deleteById(product.getIdProductInStorage());
         }
+    }
+
+    private void addBuyInventory(ProductInStorage product) {
+        Inventory inventory = new Inventory();
+        inventory.setNameProductInInventory(product.getNameProduct());
+        inventory.getBuys().add(product.getPurchasePrice());
+        iInventoryService.save(inventory);
     }
 
     private void checkIfAmountIsMajorThanAmountOrder(Order order) {
