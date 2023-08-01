@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import java.util.concurrent.atomic.AtomicReference;
@@ -55,9 +56,9 @@ public class OrderHelper implements IOrderHelper {
 
     private void setAmountInOrder(StringBuilder messageBuilder, ProductInStorage product) {
         if(product.getAmount() != 0){
-            Map<String, Double> buys =  new HashMap<>();
-            buys.put(product.getNameProduct(), product.getPurchasePrice());
-            Inventory inventory = new Inventory(null, buys);
+            Inventory inventory = new Inventory();
+            inventory.setNameProductInInventory(product.getNameProduct());
+            inventory.getBuys().add(product.getPurchasePrice());
             iInventoryService.save(inventory);
             product.setAmountInOrder(0);
             jpaProductInStorageRepository.save(product);
